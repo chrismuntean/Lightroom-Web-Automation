@@ -28,6 +28,12 @@ album_list_element = WebDriverWait(driver, 600).until(
 album_elements = album_list_element.find_elements(By.XPATH, ".//div[contains(@class, 'SidebarAlbum-') and @dir='auto']")
 album_names = [album_element.get_attribute("innerText") for album_element in album_elements]
 
+# Remove any instance of "Proof, Shared" in the album names
+album_names = [album_name.replace("Proof, Shared", "") for album_name in album_names]
+
+# Remove any instance of "Shared" in the album names
+album_names = [album_name.replace("Shared", "") for album_name in album_names]
+
 # Save the album names to a text file called "album_names.txt"
 with open("album_names.txt", "w") as f:
     for album_name in album_names:
